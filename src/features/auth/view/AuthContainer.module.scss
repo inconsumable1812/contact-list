@@ -1,0 +1,32 @@
+.paper {
+  width: 100%;
+  max-width: 400px;
+  padding: 50px;
+  border: 1px solid #dedede;
+  margin: 50px auto 0;
+  position: relative;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.error {
+  text-align: center;
+  font-size: 1.5rem;
+  color: red;
+  padding: 10px;
+}
