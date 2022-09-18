@@ -28,8 +28,8 @@ export const AuthContainer: FC<Props> = ({
     formState: { errors }
   } = useForm<AuthForm>({
     defaultValues: {
-      login: '',
-      password: ''
+      login: 'user1',
+      password: 'password1'
     },
     mode: 'onSubmit'
   });

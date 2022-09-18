@@ -1,0 +1,76 @@
+.contact {
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+
+  &__container {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 70px 1fr;
+    column-gap: 10px;
+    row-gap: 5px;
+    grid-template-areas:
+      'avatar name'
+      'avatar phone'
+      'avatar email';
+  }
+
+  &__avatar {
+    grid-area: avatar;
+    width: 70px;
+    height: 70px;
+  }
+
+  &__name {
+    grid-area: name;
+    font-size: 1.5rem;
+    color: #004f9f;
+  }
+
+  &__phoneBox {
+    grid-area: phone;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+  }
+
+  &__phoneIcon {
+    font-size: 1.3rem;
+    color: rgb(3, 130, 128);
+  }
+
+  &__phone {
+    width: fit-content;
+  }
+
+  &__emailBox {
+    grid-area: email;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+  }
+
+  &__emailIcon {
+    color: rgb(3, 130, 128);
+    font-size: 1.3rem;
+  }
+
+  &__email {
+    width: fit-content;
+  }
+}
+
+.icons {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+
+  &__delete {
+    color: red;
+  }
+}
+
+.button {
+  width: 100%;
+}
