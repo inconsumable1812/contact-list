@@ -5,6 +5,6 @@ type QueryParameters = {
   password: string;
 };
 
-type Response = Partial<User>;
+type Response = User[];
 
 export type { QueryParameters, Response };

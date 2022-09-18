@@ -4,7 +4,7 @@ import { RequestStatus } from 'shared/helpers/redux';
 type State = {
   status: RequestStatus;
   error: string | null;
-  users: User;
+  user: User;
 };
 
 export type { State };

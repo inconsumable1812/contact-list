@@ -12,7 +12,7 @@ const slice = createSlice({
       state.status = 'idle';
     },
     logOut: (state) => {
-      state.users = initialState.users;
+      state.user = initialState.user;
       state.status = 'idle';
     }
   },
@@ -23,13 +23,13 @@ const slice = createSlice({
       })
       .addCase(authAndGetData.fulfilled, (state, action) => {
         const { payload } = action;
-        const { contacts, id, name, password } = payload;
+        const { contacts, id, name, password } = payload[0];
 
         state.status = 'fulfilled';
-        state.users.contacts = contacts ?? [];
-        state.users.id = id ?? 0;
-        state.users.name = name ?? '';
-        state.users.password = password ?? '';
+        state.user.contacts = contacts ?? [];
+        state.user.id = id ?? 0;
+        state.user.name = name ?? '';
+        state.user.password = password ?? '';
       })
       .addCase(authAndGetData.rejected, (state, action) => {
         state.status = 'rejected';

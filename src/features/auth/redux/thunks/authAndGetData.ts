@@ -14,6 +14,10 @@ const authAndGetData = createAsyncThunk(
       return Promise.reject(result);
     }
 
+    if (result.length === 0) {
+      throw new Error('Неверный логин или пароль');
+    }
+
     return result;
   }
 );
