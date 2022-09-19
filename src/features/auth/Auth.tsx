@@ -5,7 +5,6 @@ import { useAppSelector } from 'app/hooks';
 import { REQUEST_STATUS } from 'shared/helpers/redux';
 import { AuthContainer } from './view/AuthContainer';
 import { selectUser } from './redux/slice';
-import styles from './Auth.module.scss';
 import { Container } from 'shared/components';
 
 type Props = {};
