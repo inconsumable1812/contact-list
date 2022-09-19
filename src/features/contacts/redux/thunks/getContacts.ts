@@ -11,6 +11,10 @@ const getContacts = createAsyncThunk(
       return Promise.reject(result);
     }
 
+    if (result.length === 0) {
+      throw new Error('Error 404');
+    }
+
     return result;
   }
 );
