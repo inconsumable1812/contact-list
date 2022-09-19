@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -7,12 +7,14 @@ import {
   DialogActions,
   Button
 } from '@mui/material';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
-
-import './EditModal.scss';
-import { E164Number } from 'shared/types';
+import { isPossiblePhoneNumber } from 'react-phone-number-input';
 import { useForm } from 'react-hook-form';
+
+import { E164Number } from 'shared/types';
+import { emailRegex } from 'shared/helpers/regex';
+import { EditForm } from './types';
+import './EditModal.scss';
+import { PhoneInputCustom } from '../CustomPhoneInput/CustomPhoneInput';
 
 type Props = {
   name: string;
@@ -20,37 +22,6 @@ type Props = {
   email: string;
   isOpen: boolean;
   onClose: () => void;
-};
-
-interface CustomProps {
-  onChange: (event: { target: { name: string; value: E164Number } }) => void;
-  value: E164Number;
-  name: string;
-}
-
-const PhoneInputCustom = React.forwardRef<HTMLElement, CustomProps>(
-  function TextMaskCustom(props, ref) {
-    const { onChange, value, ...other } = props;
-    return (
-      <PhoneInput
-        {...other}
-        defaultCountry="RU"
-        countryCallingCodeEditable={false}
-        international
-        inputRef={ref}
-        onChange={(value: any) => {
-          onChange({ target: { name: props.name, value } });
-        }}
-        value={value}
-      />
-    );
-  }
-);
-
-type EditForm = {
-  name: string;
-  phone: E164Number;
-  email: string;
 };
 
 export const EditModal: FC<Props> = ({
@@ -63,36 +34,42 @@ export const EditModal: FC<Props> = ({
   const {
     register,
     handleSubmit,
-    getValues,
+    control,
     formState: { errors }
   } = useForm<EditForm>({
     defaultValues: {
       name: 'user1',
       phone: '+78000',
-      email: '@mail'
+      email: 'm@mail.ru'
     },
-    mode: 'onSubmit'
+    mode: 'onChange'
   });
-  // const [val, setVal] = useState<E164Number>('');
 
-  // const handler = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   console.log(event, 'event');
-
-  //   setVal(event.currentTarget?.value);
-  // };
+  const submitHandler = (val: EditForm) => {
+    console.log(val);
+  };
 
   return (
-    <form>
-      <Dialog className="edit-modal" open={isOpen} onClose={onClose}>
-        <DialogTitle className="edit-modal__header">Редактор</DialogTitle>
-        <DialogContent>
+    <form className="edit-form" onSubmit={handleSubmit(submitHandler)}>
+      <Dialog
+        disablePortal
+        className="edit-form__modal"
+        open={isOpen}
+        onClose={onClose}
+      >
+        <DialogTitle className="edit-form__header">Редактор</DialogTitle>
+        <DialogContent className="edit-form__content">
           <TextField
+            className="edit-form__name"
+            margin="dense"
             label="Имя"
             type="text"
             fullWidth
             variant="filled"
+            error={!!errors.name?.message}
+            helperText={errors.name?.message}
             {...register('name', {
-              required: 'Введите логин',
+              required: 'Введите имя',
               minLength: {
                 value: 3,
                 message: 'Минимальная длина 3'
@@ -101,50 +78,52 @@ export const EditModal: FC<Props> = ({
           />
 
           <TextField
-            {...register('phone', {
-              required: 'Введите логин',
-
-              minLength: {
-                value: 3,
-                message: 'Минимальная длина 3'
-              }
-            })}
-            value={getValues().phone}
+            margin="dense"
+            className="edit-form__phone-container"
             InputProps={{
-              inputComponent: PhoneInputCustom as any
+              // TODO https://mui.com/material-ui/react-text-field/#integration-with-3rd-party-input-libraries
+              inputComponent: PhoneInputCustom as any,
+              inputProps: {
+                control: control,
+                rules: {
+                  required: 'Введите номер',
+                  validate: {
+                    isPossible: (value: any) =>
+                      isPossiblePhoneNumber(value) || 'Неправильный номер'
+                  }
+                }
+              }
             }}
+            fullWidth
+            variant="filled"
+            type="tel"
+            error={!!errors.phone?.message}
+            helperText={errors.phone?.message}
           />
 
-          {/* <PhoneInput
-            className="edit-modal__phone"
-            international
-            defaultCountry="RU"
-            countryCallingCodeEditable={false}
-            {...register('phone', {
-              required: 'Введите логин',
-
-              minLength: {
-                value: 3,
-                message: 'Минимальная длина 3'
-              }
-            })}
-          /> */}
-
           <TextField
+            className="edit-form__email"
             margin="dense"
             label="Email"
             type="email"
             fullWidth
             variant="filled"
+            error={!!errors.email?.message}
+            helperText={errors.email?.message}
+            {...register('email', {
+              required: 'Введите почту',
+              pattern: {
+                value: emailRegex,
+                message: 'Неправильная почта'
+              }
+            })}
           />
         </DialogContent>
         <DialogActions>
           <Button type="button" onClick={onClose}>
-            Cancel
+            Отмена
           </Button>
-          <Button type="submit" onClick={onClose}>
-            Subscribe
-          </Button>
+          <Button type="submit">Изменить</Button>
         </DialogActions>
       </Dialog>
     </form>

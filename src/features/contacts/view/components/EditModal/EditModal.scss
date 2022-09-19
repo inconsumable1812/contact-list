@@ -1,34 +1,42 @@
-.edit-modal {
-  &__phone {
+// .edit-modal {
+//   &__phone {
+//     position: relative;
+
+//     .PhoneInputCountry {
+//       position: absolute;
+//       top: 50%;
+//       transform: translateY(-50%);
+//       left: 10px;
+//     }
+
+//     .PhoneInputInput {
+//       padding: 20px 10px 20px 50px;
+//       max-height: 56px;
+//       background-color: rgba(0, 0, 0, 0.06);
+//       border-color: transparent;
+//       outline: none;
+//       appearance: none;
+//     }
+//   }
+// }
+
+.edit-form {
+  &__header {
+    text-align: center;
+  }
+  &__phone-container {
     position: relative;
 
-    &::after {
-      border-bottom: 2px solid #1976d2;
-      left: 0;
-      bottom: 0;
-      content: '';
-      position: absolute;
-      right: 0;
-      transform: scaleX(0);
-      transition: transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-      pointer-events: none;
+    .PhoneInput {
+      padding: 20px 0 20px 0;
     }
 
-    &:focus {
-      transform: scaleX(1);
-    }
-
-    &::before {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-      left: 0;
-      bottom: 0;
-      content: '\00a0';
-      position: absolute;
-      right: 0;
-      -webkit-transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1)
-        0ms;
-      transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-      pointer-events: none;
+    .PhoneInputInput {
+      padding: 20px 10px 20px 50px;
+      appearance: none;
+      border: none;
+      outline: none;
+      background-color: transparent;
     }
 
     .PhoneInputCountry {
@@ -37,21 +45,17 @@
       transform: translateY(-50%);
       left: 10px;
     }
-
-    .PhoneInputInput {
-      padding: 20px 10px 20px 50px;
-      max-height: 56px;
-      background-color: rgba(0, 0, 0, 0.06);
-      border-color: transparent;
-      outline: none;
-      appearance: none;
-      // transition: border-bottom 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-      // border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-
-      // &:focus-visible,
-      // &:focus {
-      //   border-bottom: 2px solid #1976d2;
-      // }
-    }
   }
 }
+
+// .phone-ontainer {
+//   padding: 0;
+
+//   input {
+//     padding: 20px 10px 20px 50px;
+//   }
+
+//   PhoneInputInput {
+//     padding: 20px 10px 20px 50px;
+//   }
+// }

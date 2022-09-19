@@ -15,15 +15,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
-
-import 'react-phone-number-input/style.css';
-import PhoneInput from 'react-phone-number-input';
-import Input from 'react-phone-number-input/input';
+import { formatPhoneNumberIntl } from 'react-phone-number-input';
 
 import styles from './ContactContainer.module.scss';
 import { Avatar } from '../../components/Avatar/Avatar';
 import { E164Number } from 'shared/types';
 import { EditModal } from '../../components/EditModal/EditModal';
+import { DeleteModal } from '../../components/DeleteModal/DeleteModal';
 
 type Props = {};
 
@@ -62,7 +60,7 @@ export const ContactContainer: FC<Props> = () => {
             className={styles.contact__phone}
             href={`tel:${value}`}
           >
-            <Input onChange={setValue} value={value} disabled></Input>
+            <p>{formatPhoneNumberIntl(value ?? '')}</p>
           </Link>
         </div>
 
@@ -101,28 +99,11 @@ export const ContactContainer: FC<Props> = () => {
         onClose={handleCloseChangeModal}
       ></EditModal>
 
-      <Dialog open={isOpenDeleteModal} onClose={handleCloseDeleteModal}>
-        <DialogTitle>DELETE</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDeleteModal}>Cancel</Button>
-          <Button onClick={handleCloseDeleteModal}>Subscribe</Button>
-        </DialogActions>
-      </Dialog>
+      <DeleteModal
+        name={''}
+        isOpen={isOpenDeleteModal}
+        onClose={handleCloseDeleteModal}
+      ></DeleteModal>
     </Card>
   );
 };
