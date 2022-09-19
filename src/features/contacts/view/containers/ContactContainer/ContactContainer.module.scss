@@ -28,11 +28,14 @@
     color: #004f9f;
   }
 
-  &__phoneBox {
-    grid-area: phone;
+  &__box {
     display: flex;
     align-items: center;
     column-gap: 5px;
+  }
+
+  &__phoneBox {
+    grid-area: phone;
   }
 
   &__phoneIcon {
@@ -41,14 +44,14 @@
   }
 
   &__phone {
-    width: fit-content;
+    input {
+      cursor: pointer;
+      padding: 2px;
+    }
   }
 
   &__emailBox {
     grid-area: email;
-    display: flex;
-    align-items: center;
-    column-gap: 5px;
   }
 
   &__emailIcon {

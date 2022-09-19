@@ -1,6 +1,5 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
-  Box,
   Button,
   Card,
   Dialog,
@@ -23,13 +22,15 @@ import Input from 'react-phone-number-input/input';
 
 import styles from './ContactContainer.module.scss';
 import { Avatar } from '../../components/Avatar/Avatar';
+import { E164Number } from 'shared/types';
+import { EditModal } from '../../components/EditModal/EditModal';
 
 type Props = {};
-type E164Number = any;
 
 export const ContactContainer: FC<Props> = () => {
-  const [value, setValue] = useState<E164Number>(+786786);
+  const [value, setValue] = useState<E164Number>('+78005553535');
   const [isOpenChangeModal, setIsOpenChangeModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
   const handleOpenChangeModal = () => {
     setIsOpenChangeModal(true);
@@ -39,6 +40,14 @@ export const ContactContainer: FC<Props> = () => {
     setIsOpenChangeModal(false);
   };
 
+  const handleOpenDeleteModal = () => {
+    setIsOpenDeleteModal(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsOpenDeleteModal(false);
+  };
+
   return (
     <Card className={styles.contact}>
       <div className={styles.contact__container}>
@@ -46,18 +55,18 @@ export const ContactContainer: FC<Props> = () => {
         <Typography className={styles.contact__name} variant="h4">
           dfgdfg
         </Typography>
-        <div className={styles.contact__phoneBox}>
+        <div className={`${styles.contact__box} ${styles.contact__phoneBox}`}>
           <PhoneIcon className={styles.contact__phoneIcon}></PhoneIcon>
           <Link
             underline="hover"
             className={styles.contact__phone}
             href={`tel:${value}`}
           >
-            <Typography>7567567657</Typography>
+            <Input onChange={setValue} value={value} disabled></Input>
           </Link>
         </div>
 
-        <div className={styles.contact__emailBox}>
+        <div className={`${styles.contact__box} ${styles.contact__emailBox}`}>
           <EmailIcon className={styles.contact__emailIcon}></EmailIcon>
           <Link
             underline="hover"
@@ -76,12 +85,24 @@ export const ContactContainer: FC<Props> = () => {
           <EditIcon />
         </Button>
 
-        <Button className={`${styles.button} ${styles.icons__delete}`}>
+        <Button
+          onClick={handleOpenDeleteModal}
+          className={`${styles.button} ${styles.icons__delete}`}
+        >
           <DeleteIcon />
         </Button>
       </div>
-      <Dialog open={isOpenChangeModal} onClose={handleCloseChangeModal}>
-        <DialogTitle>Subscribe</DialogTitle>
+
+      <EditModal
+        name={''}
+        phone={undefined}
+        email={''}
+        isOpen={isOpenChangeModal}
+        onClose={handleCloseChangeModal}
+      ></EditModal>
+
+      <Dialog open={isOpenDeleteModal} onClose={handleCloseDeleteModal}>
+        <DialogTitle>DELETE</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To subscribe to this website, please enter your email address here.
@@ -98,8 +119,8 @@ export const ContactContainer: FC<Props> = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseChangeModal}>Cancel</Button>
-          <Button onClick={handleCloseChangeModal}>Subscribe</Button>
+          <Button onClick={handleCloseDeleteModal}>Cancel</Button>
+          <Button onClick={handleCloseDeleteModal}>Subscribe</Button>
         </DialogActions>
       </Dialog>
     </Card>
