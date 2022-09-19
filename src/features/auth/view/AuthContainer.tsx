@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
@@ -10,7 +10,8 @@ import { AuthForm } from './types';
 import { Container } from 'shared/components';
 import { useAppDispatch } from 'app/hooks';
 import { authAndGetUser } from '../redux/thunks/authAndGetUser';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, IconButton, InputAdornment } from '@mui/material';
+import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 type Props = {
   isLoading?: boolean;
@@ -36,6 +37,11 @@ export const AuthContainer: FC<Props> = ({
   });
 
   const dispatch = useAppDispatch();
+  const [isShowPassword, setIsShowPassword] = useState(false);
+
+  const changeVisibility = () => {
+    setIsShowPassword((prev) => !prev);
+  };
 
   const loginHandler = (val: AuthForm) => {
     dispatch(authAndGetUser(val));
@@ -73,10 +79,24 @@ export const AuthContainer: FC<Props> = ({
             error={Boolean(errors.password?.message)}
             helperText={errors.password?.message}
             fullWidth
+            type={isShowPassword ? 'text' : 'password'}
             {...register('password', {
               required: 'Минимальная длина 6',
               minLength: 6
             })}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={changeVisibility}
+                    edge="end"
+                  >
+                    {isShowPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
           />
           <Button size="large" variant="contained" type="submit" fullWidth>
             Войти
