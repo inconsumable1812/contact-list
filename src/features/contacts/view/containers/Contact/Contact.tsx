@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Button, Card, Link, Typography } from '@mui/material';
+import { Button, Card, Link, Tooltip, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -40,9 +40,22 @@ export const Contact: FC<Props> = ({ contact }) => {
     <Card className={styles.contact}>
       <div className={styles.contact__container}>
         <Avatar name={contact.name} className={styles.contact__avatar} />
-        <Typography className={styles.contact__name} variant="h4">
-          {contact.name}
-        </Typography>
+        <Tooltip
+          className={styles.contact__nameTooltip}
+          title={contact.name}
+          placement="top"
+          componentsProps={{
+            tooltip: {
+              style: {
+                fontSize: '1rem'
+              }
+            }
+          }}
+        >
+          <Typography className={styles.contact__name} variant="h4">
+            {contact.name}
+          </Typography>
+        </Tooltip>
         <div className={`${styles.contact__box} ${styles.contact__phoneBox}`}>
           <PhoneIcon className={styles.contact__phoneIcon}></PhoneIcon>
           <Link
@@ -61,7 +74,9 @@ export const Contact: FC<Props> = ({ contact }) => {
             className={styles.contact__email}
             href={`mailto:gfhfgh`}
           >
-            <Typography>{contact.email}</Typography>
+            <Typography className={styles.contact__emailText}>
+              {contact.email}
+            </Typography>
           </Link>
         </div>
       </div>

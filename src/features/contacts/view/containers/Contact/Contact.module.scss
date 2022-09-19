@@ -27,6 +27,10 @@
     grid-area: name;
     font-size: 1.3rem;
     color: #004f9f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: fit-content;
   }
 
   &__box {
@@ -53,6 +57,9 @@
 
   &__emailBox {
     grid-area: email;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__emailIcon {
@@ -60,8 +67,22 @@
     font-size: 1.3rem;
   }
 
+  &__nameTooltip {
+    font-size: 1rem;
+  }
+
   &__email {
-    width: fit-content;
+    max-width: fit-content;
+    white-space: inherit;
+    overflow: inherit;
+    text-overflow: inherit;
+  }
+
+  &__emailText {
+    white-space: inherit;
+    overflow: inherit;
+    text-overflow: inherit;
+    max-width: inherit;
   }
 }
 
