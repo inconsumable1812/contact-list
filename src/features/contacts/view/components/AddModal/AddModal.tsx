@@ -27,6 +27,7 @@ export const AddModal: FC<Props> = ({ onClose, isOpen }) => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors }
   } = useForm<AddForm>({
     defaultValues: {
@@ -43,6 +44,7 @@ export const AddModal: FC<Props> = ({ onClose, isOpen }) => {
     const item = { ...val, id: new Date().getTime() };
 
     dispatch(addContact(item));
+    reset();
     onClose();
   };
 

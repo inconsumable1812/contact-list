@@ -1,8 +1,9 @@
 import { FC, SyntheticEvent, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Button, CircularProgress, Typography } from '@mui/material';
+import { Button, CircularProgress, Collapse, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { TransitionGroup } from 'react-transition-group';
 
 import styles from './ContactsContainer.module.scss';
 import { Contact } from '../Contact/Contact';
@@ -86,11 +87,13 @@ export const ContactsContainer: FC<Props> = ({
       )}
       {isError && <p className={styles.error}>{error}</p>}
       {filteredContacts.length !== 0 ? (
-        <div className={styles.contactsBox}>
+        <TransitionGroup className={styles.contactsBox}>
           {filteredContacts.map((contact) => (
-            <Contact key={contact.id} contact={contact} />
+            <Collapse key={contact.id}>
+              <Contact contact={contact} />
+            </Collapse>
           ))}
-        </div>
+        </TransitionGroup>
       ) : (
         !isLoading && <p className={styles.emptyText}>Контактов не найдено</p>
       )}

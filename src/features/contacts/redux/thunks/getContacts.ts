@@ -11,11 +11,6 @@ const getContacts = createAsyncThunk(
       return Promise.reject(result);
     }
 
-    if (result.length === 0) {
-      // TODO
-      throw new Error('Заменить на создание списка');
-    }
-
     return result;
   }
 );
