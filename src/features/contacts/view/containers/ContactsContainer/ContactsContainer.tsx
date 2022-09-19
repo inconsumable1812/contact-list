@@ -86,16 +86,16 @@ export const ContactsContainer: FC<Props> = ({
         </div>
       )}
       {isError && <p className={styles.error}>{error}</p>}
-      {filteredContacts.length !== 0 ? (
-        <TransitionGroup className={styles.contactsBox}>
-          {filteredContacts.map((contact) => (
-            <Collapse key={contact.id}>
-              <Contact contact={contact} />
-            </Collapse>
-          ))}
-        </TransitionGroup>
-      ) : (
-        !isLoading && <p className={styles.emptyText}>Контактов не найдено</p>
+      <TransitionGroup className={styles.contactsBox}>
+        {filteredContacts.map((contact) => (
+          <Collapse key={contact.id}>
+            <Contact contact={contact} />
+          </Collapse>
+        ))}
+      </TransitionGroup>
+
+      {!isLoading && filteredContacts.length === 0 && (
+        <p className={styles.emptyText}>Контактов не найдено</p>
       )}
 
       <AddModal
