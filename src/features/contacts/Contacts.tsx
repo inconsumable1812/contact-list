@@ -1,46 +1,74 @@
 import { FC, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 
-import { useAppSelector } from 'app/hooks';
-import { REQUEST_STATUS } from 'shared/helpers/redux';
-import { selectData } from 'features/auth/redux/slice';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { selectUser } from 'features/auth/redux/slice';
 // import styles from './Auth.module.scss';
-import { Container } from 'shared/components';
+import { ContactsContainer } from './view/containers/ContactsContainer/ContactsContainer';
+import { REQUEST_STATUS } from 'shared/helpers/redux';
+import { selectContacts } from './redux/selectors';
+import { useAuth } from 'shared/hooks/useAuth';
+import { getContacts } from './redux/thunks/getContacts';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {};
 
-export const Auth: FC<Props> = () => {
-  const { status, error } = useAppSelector(selectData);
+export const Contacts: FC<Props> = () => {
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector(selectUser);
+  const { status, error, contact } = useAppSelector(selectContacts);
+  const isAuth = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (status === REQUEST_STATUS.fulfilled) {
-      navigate('/contacts');
+    if (isAuth === false) {
+      navigate('/');
     }
-  }, [navigate, status]);
+  }, [isAuth, navigate]);
 
-  // switch (status) {
-  //   case REQUEST_STATUS.idle: {
-  //     return <AuthContainer />;
-  //   }
-  //   case REQUEST_STATUS.pending: {
-  //     return <AuthContainer isLoading />;
-  //   }
-  //   case REQUEST_STATUS.fulfilled: {
-  //     return (
-  //       <Container>
-  //         <h1>Вы уже вошли!</h1>
-  //         <Link to={'/contacts'}>К контактам</Link>
-  //       </Container>
-  //     );
-  //   }
-  //   case REQUEST_STATUS.rejected: {
-  //     return <AuthContainer isError error={error as string} />;
-  //   }
-  //   default: {
-  //     return null;
-  //   }
-  // }
+  useEffect(() => {
+    dispatch(getContacts({ userID: user.id }));
+  }, [dispatch, user.id]);
 
-  return <div></div>;
+  const { items } = contact;
+
+  // const contacts = [
+  //   {
+  //     name: 'Super Man',
+  //     email: 'uf31@ml.com',
+  //     phone: '+78005553543',
+  //     id: 1
+  //   },
+  //   {
+  //     name: 'Super Woman',
+  //     email: 'uf32@ml.com',
+  //     phone: '+78005553544',
+  //     id: 2
+  //   },
+  //   {
+  //     name: 'Batman Super',
+  //     email: 'uf33@ml.com',
+  //     phone: '+78005553565',
+  //     id: 3
+  //   }
+  // ];
+
+  switch (status) {
+    case REQUEST_STATUS.idle: {
+      return <ContactsContainer contacts={items} />;
+    }
+    case REQUEST_STATUS.pending: {
+      return <ContactsContainer contacts={items} isLoading />;
+    }
+    case REQUEST_STATUS.fulfilled: {
+      return <ContactsContainer contacts={items} />;
+    }
+    case REQUEST_STATUS.rejected: {
+      return (
+        <ContactsContainer contacts={items} isError error={error as string} />
+      );
+    }
+    default: {
+      return null;
+    }
+  }
 };

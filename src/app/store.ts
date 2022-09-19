@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { reducer as dataReducer } from 'features/auth';
+import { reducer as userReducer } from 'features/auth';
+import { reducer as contactsReducer } from 'features/contacts';
 
 export const store = configureStore({
   reducer: {
-    data: dataReducer
+    user: userReducer,
+    contacts: contactsReducer
   }
 });
 

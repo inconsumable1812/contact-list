@@ -1,5 +1,5 @@
 import type { RootState } from 'app/store';
 
-const selectData = (state: RootState) => state.data;
+const selectUser = (state: RootState) => state.user;
 
-export { selectData };
+export { selectUser };

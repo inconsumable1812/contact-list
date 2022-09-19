@@ -1,4 +1,4 @@
-export type EditForm = {
+export type AddForm = {
   name: string;
   phone: string;
   email: string;

@@ -1,0 +1,108 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "user1",
+      "password": "password1"
+    },
+    {
+      "id": 2,
+      "name": "user2",
+      "password": "password2"
+    },
+    {
+      "id": 3,
+      "name": "user3",
+      "password": "password3"
+    }
+  ],
+  "contacts": [
+    {
+      "id": 1,
+      "forUserID": 1,
+      "items": [
+        {
+          "name": "Dick Jonson",
+          "email": "uf11@ml.com",
+          "phone": "+78005553535",
+          "id": 1
+        },
+        {
+          "name": "John Purple",
+          "email": "uf12@ml.com",
+          "phone": "+78005553536",
+          "id": 2
+        },
+        {
+          "name": "Sara Green",
+          "email": "uf13@ml.com",
+          "phone": "+78005553537",
+          "id": 3
+        },
+        {
+          "name": "John Green",
+          "email": "uf14@ml.com",
+          "phone": "+78005553538",
+          "id": 4
+        },
+        {
+          "name": "John Jonson",
+          "email": "uf15@ml.com",
+          "phone": "+78005553539",
+          "id": 5
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "forUserID": 2,
+      "items": [
+        {
+          "name": "Samantha Purple",
+          "email": "uf21@ml.com",
+          "phone": "+78005553540",
+          "id": 1
+        },
+        {
+          "name": "Helena Green",
+          "email": "uf22@ml.com",
+          "phone": "+78005553541",
+          "id": 2
+        },
+        {
+          "name": "Sabrina Green",
+          "email": "uf23@ml.com",
+          "phone": "+78005553542",
+          "id": 3
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "forUserID": 3,
+      "items": [
+        {
+          "name": "Super Man",
+          "email": "uf31@ml.com",
+          "phone": "+78005553543",
+          "id": 1
+        },
+        {
+          "name": "Super Woman",
+          "email": "uf32@ml.com",
+          "phone": "+78005553544",
+          "id": 2
+        },
+        {
+          "name": "Batman Super",
+          "email": "uf33@ml.com",
+          "phone": "+78005553565",
+          "id": 3
+        }
+      ]
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

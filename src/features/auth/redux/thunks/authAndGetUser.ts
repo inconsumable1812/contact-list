@@ -3,10 +3,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   fetchLogin,
   LoginQueryParameters
-} from 'shared/api/getDataAndAuth/index';
+} from 'shared/api/getUserAndAuth/index';
 
-const authAndGetData = createAsyncThunk(
-  'loginAndGetData',
+const authAndGetUser = createAsyncThunk(
+  'authAndGetUser',
   async (queryParameters: LoginQueryParameters) => {
     const result = await fetchLogin(queryParameters);
 
@@ -22,4 +22,4 @@ const authAndGetData = createAsyncThunk(
   }
 );
 
-export { authAndGetData };
+export { authAndGetUser };

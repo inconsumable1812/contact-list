@@ -4,14 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'app/hooks';
 import { REQUEST_STATUS } from 'shared/helpers/redux';
 import { AuthContainer } from './view/AuthContainer';
-import { selectData } from './redux/slice';
+import { selectUser } from './redux/slice';
 import styles from './Auth.module.scss';
 import { Container } from 'shared/components';
 
 type Props = {};
 
 export const Auth: FC<Props> = () => {
-  const { status, error } = useAppSelector(selectData);
+  const { status, error } = useAppSelector(selectUser);
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { initialState } from './initialState';
-import { authAndGetData } from './thunks/authAndGetData';
-import { selectData } from './selectors';
+import { authAndGetUser } from './thunks/authAndGetUser';
+import { selectUser } from './selectors';
 
 const slice = createSlice({
   name: 'userData',
@@ -18,20 +18,19 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(authAndGetData.pending, (state) => {
+      .addCase(authAndGetUser.pending, (state) => {
         state.status = 'pending';
       })
-      .addCase(authAndGetData.fulfilled, (state, action) => {
+      .addCase(authAndGetUser.fulfilled, (state, action) => {
         const { payload } = action;
-        const { contacts, id, name, password } = payload[0];
+        const { id, name, password } = payload[0];
 
         state.status = 'fulfilled';
-        state.user.contacts = contacts ?? [];
         state.user.id = id ?? 0;
         state.user.name = name ?? '';
         state.user.password = password ?? '';
       })
-      .addCase(authAndGetData.rejected, (state, action) => {
+      .addCase(authAndGetUser.rejected, (state, action) => {
         state.status = 'rejected';
         state.error = action.error.message ?? '';
       });
@@ -42,4 +41,4 @@ const { reducer } = slice;
 
 const { statusReset, logOut } = slice.actions;
 
-export { reducer, selectData, statusReset, logOut };
+export { reducer, selectUser, statusReset, logOut };

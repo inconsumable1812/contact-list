@@ -6,9 +6,9 @@ import { stringAvatar } from './utils/stringAvatar';
 
 type Props = {
   className: string;
-  name?: string;
+  name: string;
 };
 
-export const Avatar: FC<Props> = ({ className, name = '' }) => {
-  return <MuiAvatar className={className} {...stringAvatar('Kent Dodds')} />;
+export const Avatar: FC<Props> = ({ className, name }) => {
+  return <MuiAvatar className={className} {...stringAvatar(name)} />;
 };

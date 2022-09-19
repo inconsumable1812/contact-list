@@ -1,10 +1,10 @@
 import { useAppSelector } from 'app/hooks';
-import { selectData } from 'features/auth/redux/selectors';
+import { selectUser } from 'features/auth/redux/selectors';
 
 export const useAuth = () => {
-  const { user } = useAppSelector(selectData);
+  const { user } = useAppSelector(selectUser);
 
-  if (user.name === '') {
+  if (user.id === 0) {
     return false;
   }
 

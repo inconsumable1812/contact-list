@@ -7,6 +7,8 @@ import ru from 'react-phone-number-input/locale/ru.json';
 import { Control } from 'react-hook-form';
 
 import { E164Number } from 'shared/types';
+import { parsePhoneNumber } from 'react-phone-number-input';
+import { CountryCode } from 'libphonenumber-js/min';
 
 type CustomProps = {
   onChange: (event: { target: { name: string; value: E164Number } }) => void;
@@ -19,13 +21,19 @@ type CustomProps = {
 export const PhoneInputCustom = React.forwardRef<HTMLElement, CustomProps>(
   function PhoneInputCustom(props, ref) {
     const { onChange, value, control, rules, ...other } = props;
+    const phone = parsePhoneNumber(value ?? '');
+    let country: CountryCode = 'RU';
+    if (phone !== undefined) {
+      country = phone.country ? phone.country : 'RU';
+    }
+
     return (
       <PhoneInputWithCountry
         {...other}
         name="phone"
         rules={rules}
         control={control}
-        defaultCountry="RU"
+        defaultCountry={country}
         countryCallingCodeEditable={false}
         international
         inputRef={ref}

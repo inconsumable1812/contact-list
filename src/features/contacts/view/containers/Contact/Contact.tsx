@@ -1,32 +1,22 @@
-import { FC, useEffect, useState } from 'react';
-import {
-  Button,
-  Card,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Link,
-  TextField,
-  Typography
-} from '@mui/material';
+import { FC, useState } from 'react';
+import { Button, Card, Link, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import { formatPhoneNumberIntl } from 'react-phone-number-input';
 
-import styles from './ContactContainer.module.scss';
+import styles from './Contact.module.scss';
 import { Avatar } from '../../components/Avatar/Avatar';
-import { E164Number } from 'shared/types';
 import { EditModal } from '../../components/EditModal/EditModal';
 import { DeleteModal } from '../../components/DeleteModal/DeleteModal';
+import { ContactItems } from 'shared/api/types';
 
-type Props = {};
+type Props = {
+  contact: ContactItems;
+};
 
-export const ContactContainer: FC<Props> = () => {
-  const [value, setValue] = useState<E164Number>('+78005553535');
+export const Contact: FC<Props> = ({ contact }) => {
   const [isOpenChangeModal, setIsOpenChangeModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
 
@@ -49,18 +39,18 @@ export const ContactContainer: FC<Props> = () => {
   return (
     <Card className={styles.contact}>
       <div className={styles.contact__container}>
-        <Avatar className={styles.contact__avatar} />
+        <Avatar name={contact.name} className={styles.contact__avatar} />
         <Typography className={styles.contact__name} variant="h4">
-          dfgdfg
+          {contact.name}
         </Typography>
         <div className={`${styles.contact__box} ${styles.contact__phoneBox}`}>
           <PhoneIcon className={styles.contact__phoneIcon}></PhoneIcon>
           <Link
             underline="hover"
             className={styles.contact__phone}
-            href={`tel:${value}`}
+            href={`tel:${contact.phone}`}
           >
-            <p>{formatPhoneNumberIntl(value ?? '')}</p>
+            <p>{formatPhoneNumberIntl(contact.phone ?? '')}</p>
           </Link>
         </div>
 
@@ -71,7 +61,7 @@ export const ContactContainer: FC<Props> = () => {
             className={styles.contact__email}
             href={`mailto:gfhfgh`}
           >
-            <Typography>@mail</Typography>
+            <Typography>{contact.email}</Typography>
           </Link>
         </div>
       </div>
@@ -92,15 +82,17 @@ export const ContactContainer: FC<Props> = () => {
       </div>
 
       <EditModal
-        name={''}
-        phone={undefined}
-        email={''}
+        name={contact.name}
+        phone={contact.phone}
+        email={contact.email}
+        id={contact.id}
         isOpen={isOpenChangeModal}
         onClose={handleCloseChangeModal}
       ></EditModal>
 
       <DeleteModal
-        name={''}
+        name={contact.name}
+        id={contact.id}
         isOpen={isOpenDeleteModal}
         onClose={handleCloseDeleteModal}
       ></DeleteModal>

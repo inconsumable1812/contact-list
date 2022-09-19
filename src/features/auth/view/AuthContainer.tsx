@@ -7,9 +7,10 @@ import { useForm } from 'react-hook-form';
 
 import styles from './AuthContainer.module.scss';
 import { AuthForm } from './types';
-import { Container, Loader } from 'shared/components';
+import { Container } from 'shared/components';
 import { useAppDispatch } from 'app/hooks';
-import { authAndGetData } from '../redux/thunks/authAndGetData';
+import { authAndGetUser } from '../redux/thunks/authAndGetUser';
+import { CircularProgress } from '@mui/material';
 
 type Props = {
   isLoading?: boolean;
@@ -37,7 +38,7 @@ export const AuthContainer: FC<Props> = ({
   const dispatch = useAppDispatch();
 
   const loginHandler = (val: AuthForm) => {
-    dispatch(authAndGetData(val));
+    dispatch(authAndGetUser(val));
   };
 
   return (
@@ -45,7 +46,7 @@ export const AuthContainer: FC<Props> = ({
       <Paper className={styles.paper}>
         {isLoading && (
           <div className={styles.loader}>
-            <Loader />
+            <CircularProgress />
           </div>
         )}
         <form onSubmit={handleSubmit(loginHandler)}>
