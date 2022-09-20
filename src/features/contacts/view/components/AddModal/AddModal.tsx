@@ -16,6 +16,7 @@ import './AddModal.scss';
 import { PhoneInputCustom } from '../CustomPhoneInput/CustomPhoneInput';
 import { useAppDispatch } from 'app/hooks';
 import { addContact } from 'features/contacts/redux/slice';
+import { MOCK_EMAIL } from 'shared/helpers/const';
 
 type Props = {
   isOpen: boolean;
@@ -42,6 +43,10 @@ export const AddModal: FC<Props> = ({ onClose, isOpen }) => {
 
   const submitHandler = (val: AddForm) => {
     const item = { ...val, id: new Date().getTime() };
+
+    if (val.email.trim().length === 0) {
+      item.email = MOCK_EMAIL;
+    }
 
     dispatch(addContact(item));
     reset();
@@ -110,7 +115,6 @@ export const AddModal: FC<Props> = ({ onClose, isOpen }) => {
             error={!!errors.email?.message}
             helperText={errors.email?.message}
             {...register('email', {
-              required: 'Введите почту',
               pattern: {
                 value: emailRegex,
                 message: 'Неправильная почта'

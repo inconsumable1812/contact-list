@@ -11,6 +11,7 @@ import { Avatar } from '../../components/Avatar/Avatar';
 import { EditModal } from '../../components/EditModal/EditModal';
 import { DeleteModal } from '../../components/DeleteModal/DeleteModal';
 import { ContactItems } from 'shared/api/types';
+import { MOCK_EMAIL } from 'shared/helpers/const';
 
 type Props = {
   contact: ContactItems;
@@ -69,15 +70,21 @@ export const Contact: FC<Props> = ({ contact }) => {
 
         <div className={`${styles.contact__box} ${styles.contact__emailBox}`}>
           <EmailIcon className={styles.contact__emailIcon}></EmailIcon>
-          <Link
-            underline="hover"
-            className={styles.contact__email}
-            href={`mailto:gfhfgh`}
-          >
+          {contact.email === MOCK_EMAIL ? (
             <Typography className={styles.contact__emailText}>
               {contact.email}
             </Typography>
-          </Link>
+          ) : (
+            <Link
+              underline="hover"
+              className={styles.contact__email}
+              href={`mailto:gfhfgh`}
+            >
+              <Typography className={styles.contact__emailText}>
+                {contact.email}
+              </Typography>
+            </Link>
+          )}
         </div>
       </div>
       <div className={styles.icons}>
